@@ -5,9 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.aless.ejercicio2appsmoviles.ui.screens.FormScreen
-import com.aless.ejercicio2appsmoviles.ui.screens.GreetingScreen
-import com.aless.ejercicio2appsmoviles.ui.screens.HomeScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.InventoryScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.MainScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.SinStockScreen
@@ -23,7 +20,7 @@ fun AppNavigation() {
         composable(AppRoute.Main.route) {
             InventoryScreen(
                 onSinStock = {
-                    navController.navigate(AppRoute.OutOfStock.route) {
+                    navController.navigate(AppRoute.SinStock.route) {
                         popUpTo(AppRoute.Inventory.route) { inclusive = true }
                     }
                 }
@@ -32,13 +29,13 @@ fun AppNavigation() {
         composable(AppRoute.Inventory.route) {
             InventoryScreen(
                 onSinStock = {
-                    navController.navigate(AppRoute.OutOfStock.route) {
+                    navController.navigate(AppRoute.SinStock.route) {
                         popUpTo(AppRoute.Inventory.route) { inclusive = true }
                     }
                 }
             )
         }
-        composable(AppRoute.OutOfStock.route) {
+        composable(AppRoute.SinStock.route) {
             SinStockScreen(
                 onBackToMain = {
                     navController.navigateToMain()
