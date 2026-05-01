@@ -18,7 +18,8 @@ import com.aless.ejercicio2appsmoviles.ui.theme.Ejercicio2AppsMovilesTheme
 @Composable
 fun MainScreen(
     onGoHome: () -> Unit,
-    onGoForm: () -> Unit
+    onGoForm: () -> Unit,
+    onGoInventory: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -47,6 +48,14 @@ fun MainScreen(
         ) {
             Text("Ir a Formulario")
         }
+        Button(
+            onClick = onGoInventory,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text("Ir a Inventario")
+        }
     }
 }
 
@@ -56,7 +65,8 @@ private fun MainScreenPreview() {
     Ejercicio2AppsMovilesTheme {
         MainScreen(
             onGoHome = {},
-            onGoForm = {}
+            onGoForm = {},
+            onGoInventory = {}
         )
     }
 }

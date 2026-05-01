@@ -8,7 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import com.aless.ejercicio2appsmoviles.ui.screens.FormScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.GreetingScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.HomeScreen
+import com.aless.ejercicio2appsmoviles.ui.screens.InventoryScreen
 import com.aless.ejercicio2appsmoviles.ui.screens.MainScreen
+import com.aless.ejercicio2appsmoviles.ui.screens.SinStockScreen
 
 @Composable
 fun AppNavigation() {
@@ -19,37 +21,27 @@ fun AppNavigation() {
         startDestination = AppRoute.Main.route
     ) {
         composable(AppRoute.Main.route) {
-            MainScreen(
-                onGoHome = { navController.navigate(AppRoute.Home.route) },
-                onGoForm = { navController.navigate(AppRoute.Form.route) }
-            )
-        }
-        composable(AppRoute.Home.route) {
-            HomeScreen(
-                onBackToMain = {
-                    navController.navigateToMain()
+            InventoryScreen(
+                onSinStock = {
+                    navController.navigate(AppRoute.OutOfStock.route) {
+                        popUpTo(AppRoute.Inventory.route) { inclusive = true }
+                    }
                 }
             )
         }
-        composable(AppRoute.Form.route) {
-            FormScreen(
-                onSubmit = { email ->
-                    navController.navigate(AppRoute.Greeting.createRoute(email))
-                },
-                onBackToMain = {
-                    navController.navigateToMain()
+        composable(AppRoute.Inventory.route) {
+            InventoryScreen(
+                onSinStock = {
+                    navController.navigate(AppRoute.OutOfStock.route) {
+                        popUpTo(AppRoute.Inventory.route) { inclusive = true }
+                    }
                 }
             )
         }
-        composable(AppRoute.Greeting.route) { backStackEntry ->
-            val email = backStackEntry.arguments
-                ?.getString(AppRoute.Greeting.EMAIL_ARG)
-                .orEmpty()
-
-            GreetingScreen(
-                email = email,
-                onBackToForm = {
-                    navController.popBackStack()
+        composable(AppRoute.OutOfStock.route) {
+            SinStockScreen(
+                onBackToMain = {
+                    navController.navigateToMain()
                 }
             )
         }
